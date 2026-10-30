@@ -1,0 +1,21 @@
+{
+  "name": "aperture-relay",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node sync-assets.mjs",
+    "types": "wrangler types",
+    "check": "npm run sync && npm run types && tsc --noEmit",
+    "dev": "npm run sync && wrangler dev",
+    "test": "node test-signaling.mjs",
+    "deploy": "npm run sync && wrangler deploy"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "wrangler": "^4"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261023.1": true
+  }
+}

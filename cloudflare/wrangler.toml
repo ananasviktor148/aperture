@@ -1,0 +1,28 @@
+"$schema" = "./node_modules/wrangler/config-schema.json"
+name = "aperture-relay"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+# The viewer page. Regenerate with `npm run sync` (copies ../viewer -> public).
+[assets]
+directory = "./public"
+binding = "ASSETS"
+# Everything hits the Worker first; it answers /ws, /r and /, and falls through
+# to the assets for /app.js and /style.css.
+run_worker_first = true
+
+# One object per room. Free plan requires the SQLite backend.
+[[durable_objects.bindings]]
+name = "ROOM"
+class_name = "Room"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Room"]
+
+[vars]
+STUN_URLS = "stun:stun.l.google.com:19302"
+# Only needed for friends behind symmetric NAT. Set the password with
+# `wrangler secret put TURN_CREDENTIAL`.
+TURN_URL = ""
+TURN_USERNAME = ""

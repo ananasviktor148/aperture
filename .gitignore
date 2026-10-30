@@ -1,0 +1,5 @@
+/target
+node_modules/
+cloudflare/public/
+cloudflare/.wrangler/
+cloudflare/worker-configuration.d.ts
